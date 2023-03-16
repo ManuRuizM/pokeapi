@@ -53,7 +53,7 @@ async function obtenerTodosLosPokemons() {
   try {
     // con el ?limit en el fetch va sacando url hasta el maximo que le establezco
     const response = await fetch(
-      ` ?limit=151`
+      ` https://pokeapi.co/api/v2/pokemon/?limit=151`
     );
     const data = await response.json();
     // se van mapeando los json de cada promesa 
