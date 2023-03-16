@@ -53,10 +53,10 @@ async function obtenerTodosLosPokemons() {
   try {
     // con el ?limit en el fetch va sacando url hasta el maximo que le establezco
     const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/?limit=151`
+      ` ?limit=151`
     );
     const data = await response.json();
-    // se van mapeando los json de cada promesa
+    // se van mapeando los json de cada promesa 
     const pokemons = await Promise.all(
       data.results.map(async (pokemon) => {
         const res = await fetch(pokemon.url);
@@ -91,7 +91,7 @@ const pintar = (pokemons) => {
     characterDiv$$.innerHTML = `
       <div class="container">
       <div class="card-image">
-      <h2 class="card-title">${pokemon.name}</h2>
+      <h2 class="card-title">${pokemon.name}</h2> 
       <img src="${pokemon.imagen}" alt="${pokemon.name}">
       </div>
       </div>
@@ -107,15 +107,17 @@ obtenerTodosLosPokemons();
 const filtroPokemon$$ = document.querySelector("#filtroPokemon");
 filtroPokemon$$.addEventListener("input", () => {
   const nombreInput = filtroPokemon$$.value.toLowerCase(); // metemos el lowecase para que no haga diferencias entre mayusculas y minusculas
-  const pokemonObtenido = listaPokemons.filter(
-    (pokemon) => pokemon.name.toLowerCase().includes(nombreInput)
+  const pokemonObtenido = listaPokemons.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(nombreInput)
   );
-  if (filtroPokemon$$.value !== "") { // si se ha escrito algo se deshabilitan los botones, este if permite que se busque aun no estando en la primera pagina
+  if (filtroPokemon$$.value !== "") {
+    // si se ha escrito algo se deshabilitan los botones, este if permite que se busque aun no estando en la primera pagina
     limite = 0;
-    botonAnterior$$.disabled = true; 
+    botonAnterior$$.disabled = true;
     botonSiguiente$$.disabled = true;
     pintar(pokemonObtenido.slice(limite, limite + pokemonsPorPagina));
-  }else{ // cuando se borra se vuelve a la pagina inicial
+  } else {
+    // cuando se borra se vuelve a la pagina inicial
     limite = 0;
     botonSiguiente$$.disabled = false;
     pintar(pokemonObtenido.slice(limite, limite + pokemonsPorPagina));
